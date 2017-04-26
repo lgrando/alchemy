@@ -47,6 +47,8 @@ public class MakePotionFragment extends Fragment {
                     ingredient.getPrice()
             );
             itens.add(item);
+            itens.add(item);
+            itens.add(item);
         }
         ingredientListAdapter = new IngredientListAdapter(getActivity(), itens);
         lvResult.setAdapter(ingredientListAdapter);
