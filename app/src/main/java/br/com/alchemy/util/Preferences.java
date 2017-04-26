@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.alchemy.Model.IngredientObject;
+import br.com.alchemy.model.IngredientObject;
 
 public class Preferences {
 

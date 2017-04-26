@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import br.com.alchemy.Model.IngredientObject;
+import br.com.alchemy.model.IngredientObject;
 import br.com.alchemy.R;
 import br.com.alchemy.util.Constant;
 import br.com.alchemy.util.Preferences;
@@ -88,7 +88,7 @@ public class AddIngredientFragment extends Fragment {
         if (validadeEmptyFields() && validadeEffects()) {
             IngredientObject ingredient = new IngredientObject();
             ingredient.setName(etName.getText().toString().trim().toUpperCase());
-            ingredient.setPrice(Double.parseDouble(etPrice.getText().toString()));
+            ingredient.setPrice(Integer.parseInt(etPrice.getText().toString()));
             ingredient.setFirstEffect(spFirstEffect.getSelectedItem().toString());
             ingredient.setSecondEffect(spSecondEffect.getSelectedItem().toString());
             ingredient.setThirdEffect(spThirdEffect.getSelectedItem().toString());

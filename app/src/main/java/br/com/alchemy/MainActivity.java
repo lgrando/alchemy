@@ -3,6 +3,7 @@ package br.com.alchemy;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -16,11 +17,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import br.com.alchemy.fragment.AddIngredientFragment;
+import br.com.alchemy.fragment.MakePotionFragment;
 import br.com.alchemy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AddIngredientFragment addIngredientFragment;
+    private MakePotionFragment makePotionFragment;
     private FloatingActionButton fab;
 
     @Override
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         addIngredientFragment = new AddIngredientFragment();
+        makePotionFragment = new MakePotionFragment();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -39,13 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
                 fab.setVisibility(View.INVISIBLE);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.app_content, addIngredientFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                replaceFragment(addIngredientFragment);
             }
         });
+
+        replaceFragment(makePotionFragment);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,6 +57,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.app_content, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
