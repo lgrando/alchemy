@@ -77,19 +77,21 @@
                     style="@style/ComponentMargin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/border_spinner" />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    style="@style/Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="blau" />
 
             </LinearLayout>
 
         </ScrollView>
 
-        <Button
-            android:id="@+id/btn_save"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="blau" />
     </RelativeLayout>
 
 </FrameLayout>
