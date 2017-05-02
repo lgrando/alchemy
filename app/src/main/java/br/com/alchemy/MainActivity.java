@@ -17,12 +17,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import br.com.alchemy.fragment.AddIngredientFragment;
+import br.com.alchemy.fragment.EditIngredientFragment;
 import br.com.alchemy.fragment.MakePotionFragment;
 import br.com.alchemy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AddIngredientFragment addIngredientFragment;
+    private EditIngredientFragment editIngredientFragment;
     private MakePotionFragment makePotionFragment;
     private FloatingActionButton fab;
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         addIngredientFragment = new AddIngredientFragment();
+        editIngredientFragment = new EditIngredientFragment();
         makePotionFragment = new MakePotionFragment();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -90,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -114,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Preferences.clearIngredients(this);
         } else if (id == R.id.nav_size) {
             Toast.makeText(this, "Existem "+Preferences.getIngredients(this).size()+" ingredientes", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_edit) {
+            replaceFragment(editIngredientFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

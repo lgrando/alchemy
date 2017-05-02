@@ -80,7 +80,7 @@ public class AddIngredientFragment extends Fragment {
         for (String effect : getEFFECTS()) {
             list.add(effect);
         }
-        list.add(0, "Selecione...");
+        list.add(0, "Unknown");
     }
 
     private void saveNewIngredient() {
@@ -122,22 +122,22 @@ public class AddIngredientFragment extends Fragment {
             etPrice.setError("Campo obrigatório");
             return false;
         }
-        if (spFirstEffect.getSelectedItemPosition() == 0) {
-            etName.setError("Selecione todos os efeitos");
-            return false;
-        }
-        if (spSecondEffect.getSelectedItemPosition() == 0) {
-            etName.setError("Selecione todos os efeitos");
-            return false;
-        }
-        if (spThirdEffect.getSelectedItemPosition() == 0) {
-            etName.setError("Selecione todos os efeitos");
-            return false;
-        }
-        if (spFourthEffect.getSelectedItemPosition() == 0) {
-            etName.setError("Selecione todos os efeitos");
-            return false;
-        }
+//        if (spFirstEffect.getSelectedItemPosition() == 0) {
+//            etName.setError("Selecione todos os efeitos");
+//            return false;
+//        }
+//        if (spSecondEffect.getSelectedItemPosition() == 0) {
+//            etName.setError("Selecione todos os efeitos");
+//            return false;
+//        }
+//        if (spThirdEffect.getSelectedItemPosition() == 0) {
+//            etName.setError("Selecione todos os efeitos");
+//            return false;
+//        }
+//        if (spFourthEffect.getSelectedItemPosition() == 0) {
+//            etName.setError("Selecione todos os efeitos");
+//            return false;
+//        }
         etName.setError(null);
         etPrice.setError(null);
         return true;
@@ -149,17 +149,25 @@ public class AddIngredientFragment extends Fragment {
         String thirdEffect = spThirdEffect.getSelectedItem().toString();
         String fourthEffect = spFourthEffect.getSelectedItem().toString();
 
-        if (firstEffect.equalsIgnoreCase(secondEffect) || firstEffect.equalsIgnoreCase(thirdEffect) || firstEffect.equalsIgnoreCase(fourthEffect)) {
-            etName.setError("Efeitos devem ser diferentes");
-            return false;
+        if (!firstEffect.equalsIgnoreCase("Unknown")) {
+            if (firstEffect.equalsIgnoreCase(secondEffect) || firstEffect.equalsIgnoreCase(thirdEffect) || firstEffect.equalsIgnoreCase(fourthEffect)) {
+                etName.setError("Efeitos devem ser diferentes");
+                return false;
+            }
         }
-        if (secondEffect.equalsIgnoreCase(thirdEffect) || secondEffect.equalsIgnoreCase(fourthEffect)) {
-            etName.setError("Efeitos devem ser diferentes");
-            return false;
+
+        if (!secondEffect.equalsIgnoreCase("Unknown")) {
+            if (secondEffect.equalsIgnoreCase(thirdEffect) || secondEffect.equalsIgnoreCase(fourthEffect)) {
+                etName.setError("Efeitos devem ser diferentes");
+                return false;
+            }
         }
-        if (thirdEffect.equalsIgnoreCase(fourthEffect)) {
-            etName.setError("Efeitos devem ser diferentes");
-            return false;
+
+        if (!thirdEffect.equalsIgnoreCase("Unknown")) {
+            if (thirdEffect.equalsIgnoreCase(fourthEffect)) {
+                etName.setError("Efeitos devem ser diferentes");
+                return false;
+            }
         }
 
         etName.setError(null);
