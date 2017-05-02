@@ -12,13 +12,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import br.com.alchemy.model.IngredientObject;
 import br.com.alchemy.R;
-import br.com.alchemy.util.Constant;
+import br.com.alchemy.model.IngredientObject;
 import br.com.alchemy.util.Preferences;
+
+import static br.com.alchemy.util.Constant.getEFFECTS;
 
 public class AddIngredientFragment extends Fragment {
 
@@ -77,10 +77,9 @@ public class AddIngredientFragment extends Fragment {
 
     private void populateEffects(List<String> list) {
 
-        for (String effect : Constant.EFFECTS) {
+        for (String effect : getEFFECTS()) {
             list.add(effect);
         }
-        Collections.sort(list);
         list.add(0, "Selecione...");
     }
 
