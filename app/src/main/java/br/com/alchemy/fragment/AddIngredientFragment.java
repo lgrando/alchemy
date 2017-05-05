@@ -18,8 +18,6 @@ import br.com.alchemy.R;
 import br.com.alchemy.model.IngredientObject;
 import br.com.alchemy.util.Preferences;
 
-import static br.com.alchemy.util.Constant.getEFFECTS;
-
 public class AddIngredientFragment extends Fragment {
 
     private EditText etName;
@@ -76,8 +74,8 @@ public class AddIngredientFragment extends Fragment {
     }
 
     private void populateEffects(List<String> list) {
-
-        for (String effect : getEFFECTS()) {
+        List<String> effectsList = Preferences.getEffects();
+        for (String effect : effectsList) {
             list.add(effect);
         }
         list.add(0, "Unknown");
@@ -94,8 +92,8 @@ public class AddIngredientFragment extends Fragment {
             ingredient.setFourthEffect(spFourthEffect.getSelectedItem().toString());
 
             if (validateDuplicateIngredient(ingredient)) {
-                Preferences.saveIngredient(getActivity(), ingredient);
-                Snackbar.make(btnSave, "Ingrediente Salvo!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Preferences.saveIngredient(ingredient);
+                Snackbar.make(btnSave, "Ingrediente salvo!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             } else {
                 Snackbar.make(btnSave, "Ingrediente já existe", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
@@ -103,7 +101,7 @@ public class AddIngredientFragment extends Fragment {
     }
 
     private boolean validateDuplicateIngredient(IngredientObject ingredient) {
-        ArrayList<IngredientObject> ingredientList = Preferences.getIngredients(getActivity());
+        ArrayList<IngredientObject> ingredientList = Preferences.getIngredients();
 
         for (IngredientObject ingredientObject : ingredientList) {
             if (ingredient.getName().equalsIgnoreCase(ingredientObject.getName())) {
@@ -122,22 +120,6 @@ public class AddIngredientFragment extends Fragment {
             etPrice.setError("Campo obrigatório");
             return false;
         }
-//        if (spFirstEffect.getSelectedItemPosition() == 0) {
-//            etName.setError("Selecione todos os efeitos");
-//            return false;
-//        }
-//        if (spSecondEffect.getSelectedItemPosition() == 0) {
-//            etName.setError("Selecione todos os efeitos");
-//            return false;
-//        }
-//        if (spThirdEffect.getSelectedItemPosition() == 0) {
-//            etName.setError("Selecione todos os efeitos");
-//            return false;
-//        }
-//        if (spFourthEffect.getSelectedItemPosition() == 0) {
-//            etName.setError("Selecione todos os efeitos");
-//            return false;
-//        }
         etName.setError(null);
         etPrice.setError(null);
         return true;

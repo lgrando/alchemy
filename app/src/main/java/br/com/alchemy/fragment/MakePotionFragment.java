@@ -14,16 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.alchemy.R;
 import br.com.alchemy.adapter.IngredientListAdapter;
 import br.com.alchemy.adapter.IngredientListItem;
 import br.com.alchemy.model.IngredientObject;
-import br.com.alchemy.util.Constant;
 import br.com.alchemy.util.MultipleChoiceListDialogListener;
 import br.com.alchemy.util.Preferences;
-
-import static br.com.alchemy.util.Constant.getEFFECTS;
 
 public class MakePotionFragment extends Fragment implements MultipleChoiceListDialogListener {
 
@@ -31,6 +29,7 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
     private ListView lvResult;
     private TextView tvSelected;
     private ArrayList<IngredientListItem> itens;
+    private String[] effects;
     private ArrayList<Integer> list;
     int[] selectedItens;
     private IngredientListAdapter ingredientListAdapter;
@@ -42,11 +41,20 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_make_potion, container, false);
 
+        castEffectsArray();
         initViews(view);
         list = new ArrayList<>();
 
 //        createListView(Preferences.getIngredients(getActivity()));
         return view;
+    }
+
+    private void castEffectsArray() {
+        List<String> effectsList = Preferences.getEffects();
+        effects = new String[effectsList.size()];
+        for (int i = 0; i < Preferences.getEffects().size(); i++) {
+            effects[i] = Preferences.getEffects().get(i);
+        }
     }
 
     private void createListView(ArrayList<IngredientObject> ingredients) {
@@ -80,13 +88,13 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
     }
 
     private void openMultipleChoiceDialog() {
-        boolean[] isSelectedArray = new boolean[getEFFECTS().length];
+        boolean[] isSelectedArray = new boolean[Preferences.getEffects().size()];
         populateCheckedItens(isSelectedArray);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Selecione os efeitos")
-                .setMultiChoiceItems(getEFFECTS(), isSelectedArray,
+                .setMultiChoiceItems(effects, isSelectedArray,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -134,7 +142,7 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
         ArrayList<String> selectedEffects = new ArrayList<>();
         if (arrayList.size() != 0) {
             for (int i = 0; i < arrayList.size(); i++) {
-                String effect = getEFFECTS()[arrayList.get(i)];
+                String effect = effects[arrayList.get(i)];
                 stringBuilder = stringBuilder.append(" "+effect+", ");
                 selectedEffects.add(effect);
             }
@@ -155,7 +163,7 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
     private void searchIngredients(ArrayList<String> selectedEffects) {
         ArrayList<IngredientObject> ingredientsFound = new ArrayList<>();
         for (String effect : selectedEffects) {
-            for (IngredientObject ingredient : Preferences.getIngredients(getActivity())) {
+            for (IngredientObject ingredient : Preferences.getIngredients()) {
                 if (ingredient.getFirstEffect().equalsIgnoreCase(effect) ||
                         ingredient.getSecondEffect().equalsIgnoreCase(effect) ||
                         ingredient.getThirdEffect().equalsIgnoreCase(effect) ||

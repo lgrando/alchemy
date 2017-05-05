@@ -1,96 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_round_white"
     android:gravity="center"
-    android:padding="5dp">
+    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_item_name"
-        style="@style/SubTitle"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome"
-        android:textSize="15dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_item_name"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:background="@drawable/border_left_round_white">
 
         <TextView
-            android:id="@+id/tv_item_price"
+            android:id="@+id/tv_item_name"
+            style="@style/SubTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:text="5"
-            android:layout_marginRight="5dp"
-            android:textSize="25dp" />
+            android:layout_marginLeft="5dp"
+            android:text="Nome"
+            android:textSize="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_below="@+id/tv_item_name"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_item_first_effect"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Ef1"
-                    android:textSize="12dp" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_item_second_effect"
+                    <TextView
+                        android:id="@+id/tv_item_first_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ef1"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/tv_item_second_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ef2"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Ef2"
-                    android:textSize="12dp" />
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_item_third_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ef3"
+                        android:textSize="12dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_item_fourth_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ef4"
+                        android:textSize="12dp" />
 
-                <TextView
-                    android:id="@+id/tv_item_third_effect"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Ef3"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:id="@+id/tv_item_fourth_effect"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Ef4"
-                    android:textSize="12dp" />
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="5"
+        android:background="@drawable/border_right_round_yellow">
+
+        <TextView
+            android:id="@+id/tv_item_price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="5"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -16,14 +16,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.List;
+
+import br.com.alchemy.fragment.AddEffectFragment;
 import br.com.alchemy.fragment.AddIngredientFragment;
 import br.com.alchemy.fragment.EditIngredientFragment;
 import br.com.alchemy.fragment.MakePotionFragment;
+import br.com.alchemy.model.IngredientObject;
 import br.com.alchemy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AddIngredientFragment addIngredientFragment;
+    private AddEffectFragment addEffectFragment;
     private EditIngredientFragment editIngredientFragment;
     private MakePotionFragment makePotionFragment;
     private FloatingActionButton fab;
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         addIngredientFragment = new AddIngredientFragment();
+        addEffectFragment = new AddEffectFragment();
         editIngredientFragment = new EditIngredientFragment();
         makePotionFragment = new MakePotionFragment();
 
@@ -113,11 +119,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Preferences.clearIngredients(this);
+            Preferences.clearList(Preferences.INGREDIENT_LIST);
         } else if (id == R.id.nav_size) {
-            Toast.makeText(this, "Existem "+Preferences.getIngredients(this).size()+" ingredientes", Toast.LENGTH_SHORT).show();
+            List<IngredientObject> listIngredient = Preferences.getIngredients();
+            Toast.makeText(this, "Existem "+listIngredient.size()+" ingredientes", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_edit) {
             replaceFragment(editIngredientFragment);
+        } else if (id == R.id.nav_new_effect) {
+            replaceFragment(addEffectFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
