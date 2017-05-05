@@ -36,7 +36,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/border_round_white"
-                        android:hint="Ingredient name" />
+                        android:hint="Ingredient name"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLines="1" />
 
                     <EditText
                         android:id="@+id/et_price"

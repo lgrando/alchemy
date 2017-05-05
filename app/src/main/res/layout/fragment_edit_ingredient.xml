@@ -51,6 +51,8 @@
                             android:layout_weight="1"
                             android:background="@drawable/border_round_white"
                             android:hint="Name"
+                            android:inputType="textPersonName"
+                            android:lines="1"
                             android:maxLines="1" />
 
                         <EditText

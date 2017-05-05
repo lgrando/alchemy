@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,7 +30,6 @@ public class EditIngredientFragment extends Fragment {
     private Spinner spFourthEffect;
     private TextView tvTitle;
     private Button btnSave;
-    private LinearLayout llIngredientDetail;
     private IngredientListItem ingredient;
 
     public EditIngredientFragment() {
@@ -57,7 +55,6 @@ public class EditIngredientFragment extends Fragment {
 
     private void initViews(View view) {
         tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        llIngredientDetail = (LinearLayout) view.findViewById(R.id.ll_ingredient_detail);
         etName = (EditText) view.findViewById(R.id.et_name);
         etPrice = (EditText) view.findViewById(R.id.et_price);
         spFirstEffect = (Spinner) view.findViewById(R.id.sp_first_effect);
@@ -75,7 +72,6 @@ public class EditIngredientFragment extends Fragment {
     }
 
     private void populateIngredientDetail(IngredientListItem ingredientObject) {
-        llIngredientDetail.setVisibility(View.VISIBLE);
         etName.setText(ingredientObject.getName());
         etPrice.setText(String.valueOf(ingredientObject.getPrice()));
         spFirstEffect.setSelection(((ArrayAdapter<String>) spFirstEffect.getAdapter()).getPosition(ingredientObject.getFirstEffect()));
