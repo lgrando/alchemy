@@ -1,4 +1,4 @@
-package br.com.alchemy.fragment;
+package br.com.alchemy.fragment.ingredient;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -9,16 +9,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.alchemy.R;
+import br.com.alchemy.adapter.IngredientListItem;
 import br.com.alchemy.model.IngredientObject;
 import br.com.alchemy.util.Preferences;
 
-public class AddIngredientFragment extends Fragment {
+public class EditIngredientFragment extends Fragment {
 
     private EditText etName;
     private EditText etPrice;
@@ -26,26 +29,35 @@ public class AddIngredientFragment extends Fragment {
     private Spinner spSecondEffect;
     private Spinner spThirdEffect;
     private Spinner spFourthEffect;
+    private TextView tvTitle;
     private Button btnSave;
+    private LinearLayout llIngredientDetail;
+    private IngredientListItem ingredient;
 
-    public AddIngredientFragment() {
+    public EditIngredientFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_ingredient, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_edit_ingredient, container, false);
         initViews(view);
 
-        populateSpinner(spFirstEffect);
-        populateSpinner(spSecondEffect);
-        populateSpinner(spThirdEffect);
-        populateSpinner(spFourthEffect);
-
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            ingredient = (IngredientListItem) bundle.getSerializable("ingredient");
+            tvTitle.setText("Editing " + ingredient.getName());
+        }
+        populateSpinnerEffect(spFirstEffect);
+        populateSpinnerEffect(spSecondEffect);
+        populateSpinnerEffect(spThirdEffect);
+        populateSpinnerEffect(spFourthEffect);
+        populateIngredientDetail(ingredient);
         return view;
     }
 
     private void initViews(View view) {
+        tvTitle = (TextView) view.findViewById(R.id.tv_title);
+        llIngredientDetail = (LinearLayout) view.findViewById(R.id.ll_ingredient_detail);
         etName = (EditText) view.findViewById(R.id.et_name);
         etPrice = (EditText) view.findViewById(R.id.et_price);
         spFirstEffect = (Spinner) view.findViewById(R.id.sp_first_effect);
@@ -57,13 +69,22 @@ public class AddIngredientFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveNewIngredient();
+                editIngredient();
             }
         });
-
     }
 
-    private void populateSpinner(Spinner spinner) {
+    private void populateIngredientDetail(IngredientListItem ingredientObject) {
+        llIngredientDetail.setVisibility(View.VISIBLE);
+        etName.setText(ingredientObject.getName());
+        etPrice.setText(String.valueOf(ingredientObject.getPrice()));
+        spFirstEffect.setSelection(((ArrayAdapter<String>) spFirstEffect.getAdapter()).getPosition(ingredientObject.getFirstEffect()));
+        spSecondEffect.setSelection(((ArrayAdapter<String>) spSecondEffect.getAdapter()).getPosition(ingredientObject.getSecondEffect()));
+        spThirdEffect.setSelection(((ArrayAdapter<String>) spThirdEffect.getAdapter()).getPosition(ingredientObject.getThirdEffect()));
+        spFourthEffect.setSelection(((ArrayAdapter<String>) spFourthEffect.getAdapter()).getPosition(ingredientObject.getFourthEffect()));
+    }
+
+    private void populateSpinnerEffect(Spinner spinner) {
         List<String> effectList = new ArrayList<>();
         populateEffects(effectList);
 
@@ -74,50 +95,36 @@ public class AddIngredientFragment extends Fragment {
     }
 
     private void populateEffects(List<String> list) {
-        List<String> effectsList = Preferences.getEffects();
-        for (String effect : effectsList) {
+
+        for (String effect : Preferences.getEffects()) {
             list.add(effect);
         }
         list.add(0, "Unknown");
     }
 
-    private void saveNewIngredient() {
+    private void editIngredient() {
         if (validadeEmptyFields() && validadeEffects()) {
-            IngredientObject ingredient = new IngredientObject();
-            ingredient.setName(etName.getText().toString().trim().toUpperCase());
-            ingredient.setPrice(Integer.parseInt(etPrice.getText().toString()));
-            ingredient.setFirstEffect(spFirstEffect.getSelectedItem().toString());
-            ingredient.setSecondEffect(spSecondEffect.getSelectedItem().toString());
-            ingredient.setThirdEffect(spThirdEffect.getSelectedItem().toString());
-            ingredient.setFourthEffect(spFourthEffect.getSelectedItem().toString());
+            IngredientObject ingredientNew = new IngredientObject();
+            ingredientNew.setName(etName.getText().toString().trim().toUpperCase());
+            ingredientNew.setPrice(Integer.parseInt(etPrice.getText().toString()));
+            ingredientNew.setFirstEffect(spFirstEffect.getSelectedItem().toString());
+            ingredientNew.setSecondEffect(spSecondEffect.getSelectedItem().toString());
+            ingredientNew.setThirdEffect(spThirdEffect.getSelectedItem().toString());
+            ingredientNew.setFourthEffect(spFourthEffect.getSelectedItem().toString());
 
-            if (validateDuplicateIngredient(ingredient)) {
-                Preferences.saveIngredient(ingredient);
-                Snackbar.make(btnSave, "Ingrediente salvo!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            } else {
-                Snackbar.make(btnSave, "Ingrediente já existe", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
+            Preferences.editIngredient(ingredient.getName(), ingredientNew);
+            Snackbar.make(btnSave, "Ingredient has been edited!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            getActivity().onBackPressed();
         }
-    }
-
-    private boolean validateDuplicateIngredient(IngredientObject ingredient) {
-        ArrayList<IngredientObject> ingredientList = Preferences.getIngredients();
-
-        for (IngredientObject ingredientObject : ingredientList) {
-            if (ingredient.getName().equalsIgnoreCase(ingredientObject.getName())) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private boolean validadeEmptyFields() {
         if (etName.getText().toString().isEmpty()) {
-            etName.setError("Campo obrigatório");
+            etName.setError("Required");
             return false;
         }
         if (etPrice.getText().toString().isEmpty()) {
-            etPrice.setError("Campo obrigatório");
+            etPrice.setError("Required");
             return false;
         }
         etName.setError(null);
@@ -133,21 +140,21 @@ public class AddIngredientFragment extends Fragment {
 
         if (!firstEffect.equalsIgnoreCase("Unknown")) {
             if (firstEffect.equalsIgnoreCase(secondEffect) || firstEffect.equalsIgnoreCase(thirdEffect) || firstEffect.equalsIgnoreCase(fourthEffect)) {
-                etName.setError("Efeitos devem ser diferentes");
+                etName.setError("No effect can double");
                 return false;
             }
         }
 
         if (!secondEffect.equalsIgnoreCase("Unknown")) {
             if (secondEffect.equalsIgnoreCase(thirdEffect) || secondEffect.equalsIgnoreCase(fourthEffect)) {
-                etName.setError("Efeitos devem ser diferentes");
+                etName.setError("No effect can double");
                 return false;
             }
         }
 
         if (!thirdEffect.equalsIgnoreCase("Unknown")) {
             if (thirdEffect.equalsIgnoreCase(fourthEffect)) {
-                etName.setError("Efeitos devem ser diferentes");
+                etName.setError("No effect can double");
                 return false;
             }
         }

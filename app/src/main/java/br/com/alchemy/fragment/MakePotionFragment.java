@@ -1,7 +1,6 @@
 package br.com.alchemy.fragment;
 
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +91,7 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Selecione os efeitos")
+        builder.setTitle("Select effects")
                 .setMultiChoiceItems(effects, isSelectedArray,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
@@ -107,13 +105,13 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
                                 }
                             }
                         })
-                .setPositiveButton("Buscar", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Search", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         onOkay(list);
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         onCancel(dialog);
@@ -148,10 +146,10 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
             }
             searchIngredients(selectedEffects);
 
-            tvSelected.setText("Selecionados: "+stringBuilder.toString().substring(0,(stringBuilder.toString().length()-2)));
+            tvSelected.setText("Selected: "+stringBuilder.toString().substring(0,(stringBuilder.toString().length()-2)));
         } else {
             createListView(new ArrayList<IngredientObject>());
-            tvSelected.setText("Nenhum efeito selecionado");
+            tvSelected.setText("No effects selected");
         }
     }
 

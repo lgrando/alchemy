@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CCC"
-    tools:context="br.com.alchemy.fragment.AddIngredientFragment">
+    tools:context="br.com.alchemy.fragment.ingredient.AddIngredientFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,17 +24,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_title"
                         style="@style/Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="EDIT" />
-
-                    <Spinner
-                        android:id="@+id/sp_ingredients"
-                        style="@style/ComponentMargin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/border_spinner" />
 
                 </LinearLayout>
 
@@ -42,8 +36,7 @@
                     android:id="@+id/ll_ingredient_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -57,7 +50,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/border_round_white"
-                            android:hint="Nome" />
+                            android:hint="Name"
+                            android:maxLines="1" />
 
                         <EditText
                             android:id="@+id/et_price"
@@ -67,7 +61,7 @@
                             android:layout_marginLeft="0dp"
                             android:layout_weight="4"
                             android:background="@drawable/border_round_white"
-                            android:hint="Preço"
+                            android:hint="Price"
                             android:inputType="numberDecimal" />
 
                     </LinearLayout>
@@ -107,7 +101,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:text="blau" />
+                        android:text="save" />
 
                 </LinearLayout>
             </LinearLayout>

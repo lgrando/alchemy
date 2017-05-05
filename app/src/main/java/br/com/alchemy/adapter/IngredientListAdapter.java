@@ -41,8 +41,7 @@ public class IngredientListAdapter extends BaseAdapter {
         IngredientListItem item = itens.get(position);
         view = mInflater.inflate(R.layout.item_ingredient, null);
 
-        ((TextView) view.findViewById(R.id.tv_item_name)).setText(item.getName());
-        ((TextView) view.findViewById(R.id.tv_item_price)).setText("$"+String.valueOf(item.getPrice()));
+        ((TextView) view.findViewById(R.id.tv_item_name)).setText(item.getName()+" ($"+item.getPrice()+")");
         ((TextView) view.findViewById(R.id.tv_item_first_effect)).setText(item.getFirstEffect());
         ((TextView) view.findViewById(R.id.tv_item_second_effect)).setText(item.getSecondEffect());
         ((TextView) view.findViewById(R.id.tv_item_third_effect)).setText(item.getThirdEffect());

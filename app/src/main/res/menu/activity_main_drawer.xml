@@ -7,13 +7,7 @@
             android:title="Delete" />
         <item
             android:id="@+id/nav_size"
-            android:title="Size" />
-        <item
-            android:id="@+id/nav_edit"
-            android:title="Edit" />
-        <item
-            android:id="@+id/nav_new_effect"
-            android:title="Add effect" />
+            android:title="List ingredient" />
         <!--<item-->
             <!--android:id="@+id/nav_slideshow"-->
             <!--android:icon="@drawable/ic_menu_slideshow"-->

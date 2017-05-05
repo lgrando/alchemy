@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CCC"
-    tools:context="br.com.alchemy.fragment.AddIngredientFragment">
+    tools:context="br.com.alchemy.fragment.ingredient.AddIngredientFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                     style="@style/Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Teste" />
+                    android:text="New ingredient" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/border_round_white"
-                        android:hint="Nome" />
+                        android:hint="Ingredient name" />
 
                     <EditText
                         android:id="@+id/et_price"
@@ -46,7 +46,7 @@
                         android:layout_marginLeft="0dp"
                         android:layout_weight="4"
                         android:background="@drawable/border_round_white"
-                        android:hint="Preço"
+                        android:hint="Price"
                         android:inputType="numberDecimal" />
 
                 </LinearLayout>
@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:text="blau" />
+                    android:text="Save" />
 
             </LinearLayout>
 

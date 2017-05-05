@@ -14,17 +14,16 @@
             style="@style/Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create" />
+            android:text="Make potion" />
 
         <Button
             android:id="@+id/btn_choose"
-            style="@style/ComponentMargin"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
             android:background="@drawable/button_background"
-            android:text="Selecionar efeitos"
-            android:textAllCaps="false" />
+            android:text="Select effects" />
 
         <TextView
             android:id="@+id/tv_selected"
@@ -35,7 +34,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/border_round_white"
-            android:text="Nenhum efeito selecionado"
+            android:text="No effects selected"
             android:textSize="10dp" />
 
         <ListView

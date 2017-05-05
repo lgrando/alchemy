@@ -3,7 +3,6 @@ package br.com.alchemy.util;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -51,24 +50,6 @@ public class Preferences {
         editor.commit();
     }
 
-    public static void saveEffect(String effect) {
-
-        ArrayList<String> effects = getEffects();
-        effects.add(effect);
-
-        SharedPreferences shref;
-        SharedPreferences.Editor editor;
-        shref = application.getSharedPreferences(TAG, Context.MODE_PRIVATE);
-
-        Gson gson = new Gson();
-        String json = gson.toJson(effects);
-
-        editor = shref.edit();
-        editor.remove(EFFECT_LIST).commit();
-        editor.putString(EFFECT_LIST, json);
-        editor.commit();
-    }
-
     public static void editIngredient(String editIngredient, IngredientObject newIngredient) {
         ArrayList<IngredientObject> ingredients = getIngredients();
 
@@ -104,24 +85,61 @@ public class Preferences {
             listArrayList = new ArrayList<>();
         }
 
+        Collections.sort(listArrayList, new ComparatorIngredient());
         return listArrayList;
     }
 
-    public static ArrayList<String> getEffects() {
+    public static ArrayList<IngredientObject> getIngredientsByParam(String param) {
+        ArrayList<IngredientObject> result = new ArrayList<>();
+
+        for (IngredientObject ingredientObject : getIngredients()) {
+            if(ingredientObject.getName().contains(param)||
+                    ingredientObject.getFirstEffect().toUpperCase().contains(param)||
+                    ingredientObject.getSecondEffect().toUpperCase().contains(param)||
+                    ingredientObject.getThirdEffect().toUpperCase().contains(param)||
+                    ingredientObject.getFourthEffect().toUpperCase().contains(param)||
+                    String.valueOf(ingredientObject.getPrice()).contains(param)){
+                result.add(ingredientObject);
+            }
+        }
+
+        return result;
+    }
+
+    public static void saveEffect(String effect) {
+
+        ArrayList<String> effects = getEffects();
+        effects.add(effect);
+
         SharedPreferences shref;
+        SharedPreferences.Editor editor;
         shref = application.getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
         Gson gson = new Gson();
-        String response = shref.getString(EFFECT_LIST, "");
-        ArrayList<String> listArrayList = gson.fromJson(response, new TypeToken<List<String>>() {
-        }.getType());
+        String json = gson.toJson(effects);
 
-        if (listArrayList == null) {
-            listArrayList = new ArrayList<>();
-        }
+        editor = shref.edit();
+        editor.remove(EFFECT_LIST).commit();
+        editor.putString(EFFECT_LIST, json);
+        editor.commit();
+    }
 
-        Collections.sort(listArrayList);
-        return listArrayList;
+    public static ArrayList<String> getEffects() {
+//        SharedPreferences shref;
+//        shref = application.getSharedPreferences(TAG, Context.MODE_PRIVATE);
+//
+//        Gson gson = new Gson();
+//        String response = shref.getString(EFFECT_LIST, "");
+//        ArrayList<String> listArrayList = gson.fromJson(response, new TypeToken<List<String>>() {
+//        }.getType());
+//
+//        if (listArrayList == null) {
+//            listArrayList = new ArrayList<>();
+//        }
+//
+//        Collections.sort(listArrayList);
+//        return listArrayList;
+        return Util.getEffects();
     }
 
     public static void clearList(String key) {

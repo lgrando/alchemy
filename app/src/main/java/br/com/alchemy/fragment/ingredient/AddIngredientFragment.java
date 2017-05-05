@@ -1,4 +1,4 @@
-package br.com.alchemy.fragment;
+package br.com.alchemy.fragment.ingredient;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -6,15 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +18,8 @@ import br.com.alchemy.R;
 import br.com.alchemy.model.IngredientObject;
 import br.com.alchemy.util.Preferences;
 
-public class EditIngredientFragment extends Fragment {
+public class AddIngredientFragment extends Fragment {
 
-    private Spinner spIngredients;
     private EditText etName;
     private EditText etPrice;
     private Spinner spFirstEffect;
@@ -33,44 +27,25 @@ public class EditIngredientFragment extends Fragment {
     private Spinner spThirdEffect;
     private Spinner spFourthEffect;
     private Button btnSave;
-    private LinearLayout llIngredientDetail;
-    private IngredientObject ingredientObject;
 
-    public EditIngredientFragment() {
+    public AddIngredientFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_ingredient, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_ingredient, container, false);
+
         initViews(view);
 
-        populateSpinnerIngredient(spIngredients);
-        populateSpinnerEffect(spFirstEffect);
-        populateSpinnerEffect(spSecondEffect);
-        populateSpinnerEffect(spThirdEffect);
-        populateSpinnerEffect(spFourthEffect);
+        populateSpinner(spFirstEffect);
+        populateSpinner(spSecondEffect);
+        populateSpinner(spThirdEffect);
+        populateSpinner(spFourthEffect);
+
         return view;
     }
 
     private void initViews(View view) {
-        spIngredients = (Spinner) view.findViewById(R.id.sp_ingredients);
-        spIngredients.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0 ) {
-                    ingredientObject = Preferences.getIngredients().get(position - 1);
-                    populateIngredientDetail(ingredientObject);
-                } else {
-                    llIngredientDetail.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        llIngredientDetail = (LinearLayout) view.findViewById(R.id.ll_ingredient_detail);
         etName = (EditText) view.findViewById(R.id.et_name);
         etPrice = (EditText) view.findViewById(R.id.et_price);
         spFirstEffect = (Spinner) view.findViewById(R.id.sp_first_effect);
@@ -82,36 +57,13 @@ public class EditIngredientFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editIngredient();
+                saveNewIngredient();
             }
         });
+
     }
 
-    private void populateIngredientDetail(IngredientObject ingredientObject){
-        llIngredientDetail.setVisibility(View.VISIBLE);
-        etName.setText(ingredientObject.getName());
-        etPrice.setText(String.valueOf(ingredientObject.getPrice()));
-        spFirstEffect.setSelection(((ArrayAdapter<String>)spFirstEffect.getAdapter()).getPosition(ingredientObject.getFirstEffect()));
-        spSecondEffect.setSelection(((ArrayAdapter<String>)spSecondEffect.getAdapter()).getPosition(ingredientObject.getSecondEffect()));
-        spThirdEffect.setSelection(((ArrayAdapter<String>)spThirdEffect.getAdapter()).getPosition(ingredientObject.getThirdEffect()));
-        spFourthEffect.setSelection(((ArrayAdapter<String>)spFourthEffect.getAdapter()).getPosition(ingredientObject.getFourthEffect()));
-    }
-
-
-    private void populateSpinnerIngredient(Spinner spinner) {
-        List<IngredientObject> ingredientList = Preferences.getIngredients();
-        List<String> listIngredientName = new ArrayList<>();
-        for (IngredientObject ingredientObject : ingredientList) {
-            listIngredientName.add(ingredientObject.getName());
-        }
-
-        listIngredientName.add(0, "Selecione...");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, listIngredientName);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-    private void populateSpinnerEffect(Spinner spinner) {
+    private void populateSpinner(Spinner spinner) {
         List<String> effectList = new ArrayList<>();
         populateEffects(effectList);
 
@@ -122,14 +74,14 @@ public class EditIngredientFragment extends Fragment {
     }
 
     private void populateEffects(List<String> list) {
-
-        for (String effect : Preferences.getEffects()) {
+        List<String> effectsList = Preferences.getEffects();
+        for (String effect : effectsList) {
             list.add(effect);
         }
         list.add(0, "Unknown");
     }
 
-    private void editIngredient() {
+    private void saveNewIngredient() {
         if (validadeEmptyFields() && validadeEffects()) {
             IngredientObject ingredient = new IngredientObject();
             ingredient.setName(etName.getText().toString().trim().toUpperCase());
@@ -139,12 +91,23 @@ public class EditIngredientFragment extends Fragment {
             ingredient.setThirdEffect(spThirdEffect.getSelectedItem().toString());
             ingredient.setFourthEffect(spFourthEffect.getSelectedItem().toString());
 
-            Preferences.editIngredient(ingredientObject.getName(), ingredient);
-            populateSpinnerIngredient(spIngredients);
-            llIngredientDetail.setVisibility(View.GONE);
-            Snackbar.make(btnSave, "Ingrediente editado!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
+            if (validateDuplicateIngredient(ingredient)) {
+                Preferences.saveIngredient(ingredient);
+                Snackbar.make(btnSave, "Ingredient saved!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                clearFields();
+            } else {
+                Snackbar.make(btnSave, "Ingredient already exists", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
         }
+    }
+
+    private void clearFields() {
+        etName.setText("");
+        etPrice.setText("");
+        spFirstEffect.setSelection(0);
+        spSecondEffect.setSelection(0);
+        spThirdEffect.setSelection(0);
+        spFourthEffect.setSelection(0);
     }
 
     private boolean validateDuplicateIngredient(IngredientObject ingredient) {
@@ -160,11 +123,11 @@ public class EditIngredientFragment extends Fragment {
 
     private boolean validadeEmptyFields() {
         if (etName.getText().toString().isEmpty()) {
-            etName.setError("Campo obrigatório");
+            etName.setError("Required");
             return false;
         }
         if (etPrice.getText().toString().isEmpty()) {
-            etPrice.setError("Campo obrigatório");
+            etPrice.setError("Required");
             return false;
         }
         etName.setError(null);
@@ -180,21 +143,21 @@ public class EditIngredientFragment extends Fragment {
 
         if (!firstEffect.equalsIgnoreCase("Unknown")) {
             if (firstEffect.equalsIgnoreCase(secondEffect) || firstEffect.equalsIgnoreCase(thirdEffect) || firstEffect.equalsIgnoreCase(fourthEffect)) {
-                etName.setError("Efeitos devem ser diferentes");
+                etName.setError("No effect can double");
                 return false;
             }
         }
 
         if (!secondEffect.equalsIgnoreCase("Unknown")) {
             if (secondEffect.equalsIgnoreCase(thirdEffect) || secondEffect.equalsIgnoreCase(fourthEffect)) {
-                etName.setError("Efeitos devem ser diferentes");
+                etName.setError("No effect can double");
                 return false;
             }
         }
 
         if (!thirdEffect.equalsIgnoreCase("Unknown")) {
             if (thirdEffect.equalsIgnoreCase(fourthEffect)) {
-                etName.setError("Efeitos devem ser diferentes");
+                etName.setError("No effect can double");
                 return false;
             }
         }

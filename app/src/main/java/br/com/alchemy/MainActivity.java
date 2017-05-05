@@ -14,22 +14,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import java.util.List;
-
-import br.com.alchemy.fragment.AddEffectFragment;
-import br.com.alchemy.fragment.AddIngredientFragment;
-import br.com.alchemy.fragment.EditIngredientFragment;
 import br.com.alchemy.fragment.MakePotionFragment;
-import br.com.alchemy.model.IngredientObject;
+import br.com.alchemy.fragment.ingredient.AddIngredientFragment;
+import br.com.alchemy.fragment.ingredient.EditIngredientFragment;
+import br.com.alchemy.fragment.ingredient.ListIngredientFragment;
 import br.com.alchemy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AddIngredientFragment addIngredientFragment;
-    private AddEffectFragment addEffectFragment;
     private EditIngredientFragment editIngredientFragment;
+    private ListIngredientFragment listIngredientFragment;
     private MakePotionFragment makePotionFragment;
     private FloatingActionButton fab;
 
@@ -41,16 +37,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         addIngredientFragment = new AddIngredientFragment();
-        addEffectFragment = new AddEffectFragment();
         editIngredientFragment = new EditIngredientFragment();
+        listIngredientFragment = new ListIngredientFragment();
         makePotionFragment = new MakePotionFragment();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 fab.setVisibility(View.INVISIBLE);
                 replaceFragment(addIngredientFragment);
             }
@@ -79,21 +73,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        if(fab.getVisibility() == View.INVISIBLE){
-            fab.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
     public void onBackPressed() {
-        if(fab.getVisibility() == View.INVISIBLE){
-            fab.setVisibility(View.VISIBLE);
+        if (!makePotionFragment.isVisible()) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        if(makePotionFragment.isVisible()){
+            fab.setVisibility(View.VISIBLE);
         }
     }
 
@@ -121,12 +114,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_camera) {
             Preferences.clearList(Preferences.INGREDIENT_LIST);
         } else if (id == R.id.nav_size) {
-            List<IngredientObject> listIngredient = Preferences.getIngredients();
-            Toast.makeText(this, "Existem "+listIngredient.size()+" ingredientes", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_edit) {
-            replaceFragment(editIngredientFragment);
-        } else if (id == R.id.nav_new_effect) {
-            replaceFragment(addEffectFragment);
+            fab.setVisibility(View.INVISIBLE);
+            replaceFragment(listIngredientFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
