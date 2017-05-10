@@ -141,7 +141,7 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
         if (arrayList.size() != 0) {
             for (int i = 0; i < arrayList.size(); i++) {
                 String effect = effects[arrayList.get(i)];
-                stringBuilder = stringBuilder.append(" "+effect+", ");
+                stringBuilder = stringBuilder.append(effect+", ");
                 selectedEffects.add(effect);
             }
             searchIngredients(selectedEffects);
