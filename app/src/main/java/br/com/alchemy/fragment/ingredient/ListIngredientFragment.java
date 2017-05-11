@@ -21,6 +21,7 @@ import br.com.alchemy.adapter.IngredientListAdapter;
 import br.com.alchemy.adapter.IngredientListItem;
 import br.com.alchemy.model.IngredientObject;
 import br.com.alchemy.util.Preferences;
+import br.com.alchemy.util.Util;
 
 public class ListIngredientFragment extends Fragment {
 
@@ -38,7 +39,7 @@ public class ListIngredientFragment extends Fragment {
 
         initViews(view);
 
-        createListView(Preferences.getIngredients());
+        createListView(Util.getIngredients());
 
         return view;
     }

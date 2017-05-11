@@ -18,10 +18,10 @@ import br.com.alchemy.R;
 import br.com.alchemy.adapter.IngredientListAdapter;
 import br.com.alchemy.adapter.IngredientListItem;
 import br.com.alchemy.model.IngredientObject;
-import br.com.alchemy.util.MultipleChoiceListDialogListener;
 import br.com.alchemy.util.Preferences;
+import br.com.alchemy.util.Util;
 
-public class MakePotionFragment extends Fragment implements MultipleChoiceListDialogListener {
+public class MakePotionFragment extends Fragment {
 
     private Button btnChoose;
     private ListView lvResult;
@@ -108,7 +108,13 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
                 .setPositiveButton("Search", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        onOkay(list);
+                        onOkay(list, true);
+                    }
+                })
+                .setNeutralButton("Specific", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        onOkay(list, false);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -133,35 +139,41 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
         }
     }
 
-    @Override
-    public void onOkay(ArrayList<Integer> arrayList) {
+    public void onOkay(ArrayList<Integer> arrayList, boolean searchAll) {
         saveSelectedItens(arrayList);
         StringBuilder stringBuilder = new StringBuilder();
         ArrayList<String> selectedEffects = new ArrayList<>();
         if (arrayList.size() != 0) {
             for (int i = 0; i < arrayList.size(); i++) {
                 String effect = effects[arrayList.get(i)];
-                stringBuilder = stringBuilder.append(effect+", ");
+                stringBuilder = stringBuilder.append(effect + ", ");
                 selectedEffects.add(effect);
             }
-            searchIngredients(selectedEffects);
+            searchIngredients(selectedEffects, searchAll);
 
-            tvSelected.setText("Selected: "+stringBuilder.toString().substring(0,(stringBuilder.toString().length()-2)));
+            tvSelected.setText("Selected: " + stringBuilder.toString().substring(0, (stringBuilder.toString().length() - 2)));
         } else {
             createListView(new ArrayList<IngredientObject>());
             tvSelected.setText("No effects selected");
         }
     }
 
-    @Override
     public void onCancel(DialogInterface dialog) {
         dialog.dismiss();
     }
 
-    private void searchIngredients(ArrayList<String> selectedEffects) {
+    private void searchIngredients(ArrayList<String> selectedEffects, boolean searchAll) {
+        if (searchAll) {
+            searchAllIngredients(selectedEffects);
+        } else {
+            searchSpecificIngredients(selectedEffects);
+        }
+    }
+
+    private void searchAllIngredients(ArrayList<String> selectedEffects) {
         ArrayList<IngredientObject> ingredientsFound = new ArrayList<>();
         for (String effect : selectedEffects) {
-            for (IngredientObject ingredient : Preferences.getIngredients()) {
+            for (IngredientObject ingredient : Util.getIngredients()) {
                 if (ingredient.getFirstEffect().equalsIgnoreCase(effect) ||
                         ingredient.getSecondEffect().equalsIgnoreCase(effect) ||
                         ingredient.getThirdEffect().equalsIgnoreCase(effect) ||
@@ -170,6 +182,36 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
                         ingredientsFound.add(ingredient);
                     }
                 }
+            }
+        }
+        createListView(ingredientsFound);
+    }
+
+    //"slow"
+
+    //--deathbell--
+    //damage health
+    //ravage stamina
+    //slow
+    //poison
+    private void searchSpecificIngredients(ArrayList<String> selectedEffects) {
+        ArrayList<IngredientObject> ingredientsFound = new ArrayList<>();
+        int effectsCount = selectedEffects.size();
+        int count;
+        for (IngredientObject ingredient : Util.getIngredients()) {
+            count = 0;
+            for (String effect : selectedEffects) {
+                if (ingredient.getFirstEffect().equalsIgnoreCase(effect) ||
+                        ingredient.getSecondEffect().equalsIgnoreCase(effect) ||
+                        ingredient.getThirdEffect().equalsIgnoreCase(effect) ||
+                        ingredient.getFourthEffect().equalsIgnoreCase(effect)) {
+                    if (!isDuplicateIngredient(ingredientsFound, ingredient)) {
+                        count++;
+                    }
+                }
+            }
+            if (count == effectsCount) {
+                ingredientsFound.add(ingredient);
             }
         }
         createListView(ingredientsFound);
@@ -184,7 +226,7 @@ public class MakePotionFragment extends Fragment implements MultipleChoiceListDi
 
     private boolean isDuplicateIngredient(ArrayList<IngredientObject> ingredientsFound, IngredientObject ingredient) {
         for (IngredientObject ingredientObj : ingredientsFound) {
-            if(ingredient.getName().equalsIgnoreCase(ingredientObj.getName())){
+            if (ingredient.getName().equalsIgnoreCase(ingredientObj.getName())) {
                 return true;
             }
         }

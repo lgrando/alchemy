@@ -12,6 +12,7 @@
         <TextView
             android:id="@+id/tv_title"
             style="@style/Title"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Make potion" />
@@ -21,6 +22,7 @@
             style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/tv_title"
             android:background="@drawable/button_background"
             android:text="Select effects" />

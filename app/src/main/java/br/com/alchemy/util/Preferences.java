@@ -86,14 +86,14 @@ public class Preferences {
         }
 
         Collections.sort(listArrayList, new ComparatorIngredient());
-        return listArrayList;
+        return Util.getIngredients();
     }
 
     public static ArrayList<IngredientObject> getIngredientsByParam(String param) {
         ArrayList<IngredientObject> result = new ArrayList<>();
 
-        for (IngredientObject ingredientObject : getIngredients()) {
-            if(ingredientObject.getName().contains(param)||
+        for (IngredientObject ingredientObject : Util.getIngredients()) {
+            if(ingredientObject.getName().toUpperCase().contains(param)||
                     ingredientObject.getFirstEffect().toUpperCase().contains(param)||
                     ingredientObject.getSecondEffect().toUpperCase().contains(param)||
                     ingredientObject.getThirdEffect().toUpperCase().contains(param)||

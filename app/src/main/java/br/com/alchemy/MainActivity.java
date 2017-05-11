@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(addIngredientFragment);
             }
         });
+        fab.setVisibility(View.INVISIBLE);
 
         replaceFragment(makePotionFragment);
 
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
         if(makePotionFragment.isVisible()){
-            fab.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.INVISIBLE);
         }
     }
 
