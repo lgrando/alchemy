@@ -2,33 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <!--<item-->
-            <!--android:id="@+id/nav_camera"-->
-            <!--android:title="Delete" />-->
         <item
-            android:id="@+id/nav_size"
+            android:id="@+id/nav_make_potion"
+            android:icon="@mipmap/ic_potion_filled_black"
+            android:title="Make potion" />
+        <item
+            android:id="@+id/nav_list_ingredient"
+            android:icon="@mipmap/ic_list_ingredient"
             android:title="List ingredient" />
-        <!--<item-->
-            <!--android:id="@+id/nav_slideshow"-->
-            <!--android:icon="@drawable/ic_menu_slideshow"-->
-            <!--android:title="Slideshow" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_manage"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="Tools" />-->
     </group>
-
-    <!--<item android:title="Communicate">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="Share" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Send" />-->
-        <!--</menu>-->
-    <!--</item>-->
 
 </menu>

@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -19,10 +20,10 @@ import br.com.alchemy.fragment.MakePotionFragment;
 import br.com.alchemy.fragment.ingredient.AddIngredientFragment;
 import br.com.alchemy.fragment.ingredient.EditIngredientFragment;
 import br.com.alchemy.fragment.ingredient.ListIngredientFragment;
-import br.com.alchemy.util.Preferences;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private NavigationView navigationView;
     private AddIngredientFragment addIngredientFragment;
     private EditIngredientFragment editIngredientFragment;
     private ListIngredientFragment listIngredientFragment;
@@ -42,14 +43,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         makePotionFragment = new MakePotionFragment();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fab.setVisibility(View.INVISIBLE);
-                replaceFragment(addIngredientFragment);
-            }
-        });
-        fab.setVisibility(View.INVISIBLE);
 
         replaceFragment(makePotionFragment);
 
@@ -59,8 +52,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
+
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -85,14 +80,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 super.onBackPressed();
             }
-        }
-        if(makePotionFragment.isVisible()){
-            fab.setVisibility(View.INVISIBLE);
+        } else {
+            fab.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
         return true;
     }
 
@@ -112,9 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            Preferences.clearList(Preferences.INGREDIENT_LIST);
-        } else if (id == R.id.nav_size) {
+        if (id == R.id.nav_list_ingredient) {
             fab.setVisibility(View.INVISIBLE);
             replaceFragment(listIngredientFragment);
         }

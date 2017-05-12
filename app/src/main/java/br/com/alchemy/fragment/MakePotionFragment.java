@@ -2,6 +2,7 @@ package br.com.alchemy.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -23,11 +24,11 @@ import br.com.alchemy.util.Util;
 
 public class MakePotionFragment extends Fragment {
 
-    private Button btnChoose;
     private ListView lvResult;
     private TextView tvSelected;
     private ArrayList<IngredientListItem> itens;
     private String[] effects;
+    private FloatingActionButton fab;
     private ArrayList<Integer> list;
     int[] selectedItens;
     private IngredientListAdapter ingredientListAdapter;
@@ -74,15 +75,15 @@ public class MakePotionFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        btnChoose = (Button) view.findViewById(R.id.btn_choose);
-        btnChoose.setOnClickListener(new View.OnClickListener() {
+        lvResult = (ListView) view.findViewById(R.id.lv_result);
+        tvSelected = (TextView) view.findViewById(R.id.tv_selected);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 openMultipleChoiceDialog();
             }
         });
-        lvResult = (ListView) view.findViewById(R.id.lv_result);
-        tvSelected = (TextView) view.findViewById(R.id.tv_selected);
     }
 
     private void openMultipleChoiceDialog() {
