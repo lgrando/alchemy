@@ -18,8 +18,7 @@ import java.util.ArrayList;
 
 import br.com.alchemy.R;
 import br.com.alchemy.adapter.IngredientListAdapter;
-import br.com.alchemy.adapter.IngredientListItem;
-import br.com.alchemy.model.IngredientObject;
+import br.com.alchemy.model.Ingredient;
 import br.com.alchemy.util.Preferences;
 import br.com.alchemy.util.Util;
 
@@ -27,7 +26,7 @@ public class ListIngredientFragment extends Fragment {
 
     private ListView lvIngredients;
     private EditText etSearch;
-    private ArrayList<IngredientListItem> itens;
+    private ArrayList<Ingredient> itens;
     private IngredientListAdapter ingredientListAdapter;
 
     public ListIngredientFragment() {
@@ -38,7 +37,6 @@ public class ListIngredientFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_ingredient, container, false);
 
         initViews(view);
-        setHasOptionsMenu(true);
 
         createListView(Util.getIngredients());
 
@@ -50,7 +48,7 @@ public class ListIngredientFragment extends Fragment {
         lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                IngredientListItem ingredient = (IngredientListItem) parent.getItemAtPosition(position);
+                Ingredient ingredient = (Ingredient) parent.getItemAtPosition(position);
                 Fragment editIngredientFragment = new EditIngredientFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("ingredient", ingredient);
@@ -78,11 +76,11 @@ public class ListIngredientFragment extends Fragment {
         });
     }
 
-    private void createListView(ArrayList<IngredientObject> ingredients) {
+    private void createListView(ArrayList<Ingredient> ingredients) {
         itens = new ArrayList<>();
 
-        for (IngredientObject ingredient : ingredients) {
-            IngredientListItem item = new IngredientListItem(
+        for (Ingredient ingredient : ingredients) {
+            Ingredient item = new Ingredient(
                     ingredient.getName(),
                     ingredient.getFirstEffect(),
                     ingredient.getSecondEffect(),

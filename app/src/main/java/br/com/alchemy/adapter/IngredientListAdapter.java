@@ -10,13 +10,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.com.alchemy.R;
+import br.com.alchemy.model.Ingredient;
 
 public class IngredientListAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private ArrayList<IngredientListItem> itens;
+    private ArrayList<Ingredient> itens;
 
-    public IngredientListAdapter(Context context, ArrayList<IngredientListItem> itens) {
+    public IngredientListAdapter(Context context, ArrayList<Ingredient> itens) {
         this.itens = itens;
         mInflater = LayoutInflater.from(context);
     }
@@ -38,7 +39,7 @@ public class IngredientListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        IngredientListItem item = itens.get(position);
+        Ingredient item = itens.get(position);
         view = mInflater.inflate(R.layout.item_ingredient, null);
 
         ((TextView) view.findViewById(R.id.tv_item_name)).setText(item.getName()+" ($"+item.getPrice()+")");

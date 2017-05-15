@@ -1,6 +1,8 @@
 package br.com.alchemy.model;
 
-public class IngredientObject {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
 
     private String name;
     private String firstEffect;
@@ -9,7 +11,7 @@ public class IngredientObject {
     private String fourthEffect;
     private int price;
 
-    public IngredientObject(String name, String firstEffect, String secondEffect, String thirdEffect, String fourthEffect, int price) {
+    public Ingredient(String name, String firstEffect, String secondEffect, String thirdEffect, String fourthEffect, int price) {
         this.name = name;
         this.firstEffect = firstEffect;
         this.secondEffect = secondEffect;
@@ -18,7 +20,7 @@ public class IngredientObject {
         this.price = price;
     }
 
-    public IngredientObject() {
+    public Ingredient() {
     }
 
     public String getName() {

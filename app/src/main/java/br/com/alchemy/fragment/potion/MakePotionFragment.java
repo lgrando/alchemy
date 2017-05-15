@@ -1,4 +1,4 @@
-package br.com.alchemy.fragment;
+package br.com.alchemy.fragment.potion;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -16,8 +16,7 @@ import java.util.List;
 
 import br.com.alchemy.R;
 import br.com.alchemy.adapter.IngredientListAdapter;
-import br.com.alchemy.adapter.IngredientListItem;
-import br.com.alchemy.model.IngredientObject;
+import br.com.alchemy.model.Ingredient;
 import br.com.alchemy.util.Preferences;
 import br.com.alchemy.util.Util;
 
@@ -25,7 +24,7 @@ public class MakePotionFragment extends Fragment {
 
     private ListView lvResult;
     private TextView tvSelected;
-    private ArrayList<IngredientListItem> itens;
+    private ArrayList<Ingredient> itens;
     private String[] effects;
     private FloatingActionButton fab;
     private ArrayList<Integer> list;
@@ -56,11 +55,11 @@ public class MakePotionFragment extends Fragment {
         }
     }
 
-    private void createListView(ArrayList<IngredientObject> ingredients) {
+    private void createListView(ArrayList<Ingredient> ingredients) {
         itens = new ArrayList<>();
 
-        for (IngredientObject ingredient : ingredients) {
-            IngredientListItem item = new IngredientListItem(
+        for (Ingredient ingredient : ingredients) {
+            Ingredient item = new Ingredient(
                     ingredient.getName(),
                     ingredient.getFirstEffect(),
                     ingredient.getSecondEffect(),
@@ -154,7 +153,7 @@ public class MakePotionFragment extends Fragment {
 
             tvSelected.setText("Selected: " + stringBuilder.toString().substring(0, (stringBuilder.toString().length() - 2)));
         } else {
-            createListView(new ArrayList<IngredientObject>());
+            createListView(new ArrayList<Ingredient>());
             tvSelected.setText("No effects selected");
         }
     }
@@ -172,9 +171,9 @@ public class MakePotionFragment extends Fragment {
     }
 
     private void searchAllIngredients(ArrayList<String> selectedEffects) {
-        ArrayList<IngredientObject> ingredientsFound = new ArrayList<>();
+        ArrayList<Ingredient> ingredientsFound = new ArrayList<>();
         for (String effect : selectedEffects) {
-            for (IngredientObject ingredient : Util.getIngredients()) {
+            for (Ingredient ingredient : Util.getIngredients()) {
                 if (ingredient.getFirstEffect().equalsIgnoreCase(effect) ||
                         ingredient.getSecondEffect().equalsIgnoreCase(effect) ||
                         ingredient.getThirdEffect().equalsIgnoreCase(effect) ||
@@ -188,18 +187,11 @@ public class MakePotionFragment extends Fragment {
         createListView(ingredientsFound);
     }
 
-    //"slow"
-
-    //--deathbell--
-    //damage health
-    //ravage stamina
-    //slow
-    //poison
     private void searchSpecificIngredients(ArrayList<String> selectedEffects) {
-        ArrayList<IngredientObject> ingredientsFound = new ArrayList<>();
+        ArrayList<Ingredient> ingredientsFound = new ArrayList<>();
         int effectsCount = selectedEffects.size();
         int count;
-        for (IngredientObject ingredient : Util.getIngredients()) {
+        for (Ingredient ingredient : Util.getIngredients()) {
             count = 0;
             for (String effect : selectedEffects) {
                 if (ingredient.getFirstEffect().equalsIgnoreCase(effect) ||
@@ -225,9 +217,9 @@ public class MakePotionFragment extends Fragment {
         }
     }
 
-    private boolean isDuplicateIngredient(ArrayList<IngredientObject> ingredientsFound, IngredientObject ingredient) {
-        for (IngredientObject ingredientObj : ingredientsFound) {
-            if (ingredient.getName().equalsIgnoreCase(ingredientObj.getName())) {
+    private boolean isDuplicateIngredient(ArrayList<Ingredient> ingredientsFound, Ingredient ingredient) {
+        for (Ingredient ingredientItem : ingredientsFound) {
+            if (ingredient.getName().equalsIgnoreCase(ingredientItem.getName())) {
                 return true;
             }
         }

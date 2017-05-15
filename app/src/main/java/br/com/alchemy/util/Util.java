@@ -3,12 +3,12 @@ package br.com.alchemy.util;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import br.com.alchemy.model.IngredientObject;
+import br.com.alchemy.model.Ingredient;
 
 public class Util {
 
     public static ArrayList<String> effects;
-    public static ArrayList<IngredientObject> ingredients;
+    public static ArrayList<Ingredient> ingredients;
 
     public static String initcaps(String string) {
         return Character.toUpperCase(string.charAt(0)) + string.substring(1);
@@ -77,7 +77,7 @@ public class Util {
         return effects;
     }
 
-    public static ArrayList<IngredientObject> getIngredients() {
+    public static ArrayList<Ingredient> getIngredients() {
         ingredients = new ArrayList<>();
 
         addNewIngredientToList("Abecean Longfin","Weakness to Frost","Fortify Sneak","Weakness to Poison","Fortify Restoration",15);
@@ -191,13 +191,13 @@ public class Util {
         addNewIngredientToList("Wisp Wrappings","Restore Stamina","Fortify Destruction","Fortify Carry Weight","Resist Magic",2);
         addNewIngredientToList("Yellow Mountain Flower","Resist Poison","Fortify Restoration","Fortify Health","Damage Stamina Regen",2);
 
-        Collections.sort(ingredients, new NameComparatorIngredient());
+        Collections.sort(ingredients, new CustomComparator());
         return ingredients;
     }
 
     private static void addNewIngredientToList(String name, String first, String second, String third, String fourth, int price) {
-        IngredientObject ingredientObject = new IngredientObject(name, first, second, third, fourth, price);
-        ingredients.add(ingredientObject);
+        Ingredient ingredient = new Ingredient(name, first, second, third, fourth, price);
+        ingredients.add(ingredient);
     }
 
 }

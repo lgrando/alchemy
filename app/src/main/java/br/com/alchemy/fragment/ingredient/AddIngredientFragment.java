@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.alchemy.R;
-import br.com.alchemy.model.IngredientObject;
+import br.com.alchemy.model.Ingredient;
 import br.com.alchemy.util.Preferences;
 
 public class AddIngredientFragment extends Fragment {
@@ -83,7 +83,7 @@ public class AddIngredientFragment extends Fragment {
 
     private void saveNewIngredient() {
         if (validadeEmptyFields() && validadeEffects()) {
-            IngredientObject ingredient = new IngredientObject();
+            Ingredient ingredient = new Ingredient();
             ingredient.setName(etName.getText().toString().trim().toUpperCase());
             ingredient.setPrice(Integer.parseInt(etPrice.getText().toString()));
             ingredient.setFirstEffect(spFirstEffect.getSelectedItem().toString());
@@ -110,11 +110,11 @@ public class AddIngredientFragment extends Fragment {
         spFourthEffect.setSelection(0);
     }
 
-    private boolean validateDuplicateIngredient(IngredientObject ingredient) {
-        ArrayList<IngredientObject> ingredientList = Preferences.getIngredients();
+    private boolean validateDuplicateIngredient(Ingredient ingredient) {
+        ArrayList<Ingredient> ingredientList = Preferences.getIngredients();
 
-        for (IngredientObject ingredientObject : ingredientList) {
-            if (ingredient.getName().equalsIgnoreCase(ingredientObject.getName())) {
+        for (Ingredient ingredientItem : ingredientList) {
+            if (ingredient.getName().equalsIgnoreCase(ingredientItem.getName())) {
                 return false;
             }
         }

@@ -4,8 +4,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_make_potion"
-            android:icon="@mipmap/ic_potion_filled_black"
+            android:icon="@mipmap/ic_make_potion"
             android:title="Make potion" />
+        <item
+            android:id="@+id/nav_register_potion"
+            android:icon="@mipmap/ic_potion_black"
+            android:title="Register potion" />
         <item
             android:id="@+id/nav_list_ingredient"
             android:icon="@mipmap/ic_list_ingredient"

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CCC"
-    tools:context="br.com.alchemy.fragment.MakePotionFragment">
+    tools:context="br.com.alchemy.fragment.potion.MakePotionFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

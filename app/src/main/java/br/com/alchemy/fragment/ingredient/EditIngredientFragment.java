@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.alchemy.R;
-import br.com.alchemy.adapter.IngredientListItem;
-import br.com.alchemy.model.IngredientObject;
+import br.com.alchemy.model.Ingredient;
 import br.com.alchemy.util.Preferences;
 
 public class EditIngredientFragment extends Fragment {
@@ -30,7 +29,7 @@ public class EditIngredientFragment extends Fragment {
     private Spinner spFourthEffect;
     private TextView tvTitle;
     private Button btnSave;
-    private IngredientListItem ingredient;
+    private Ingredient ingredient;
 
     public EditIngredientFragment() {
     }
@@ -42,7 +41,7 @@ public class EditIngredientFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            ingredient = (IngredientListItem) bundle.getSerializable("ingredient");
+            ingredient = (Ingredient) bundle.getSerializable("ingredient");
             tvTitle.setText("Editing " + ingredient.getName());
         }
         populateSpinnerEffect(spFirstEffect);
@@ -71,13 +70,13 @@ public class EditIngredientFragment extends Fragment {
         });
     }
 
-    private void populateIngredientDetail(IngredientListItem ingredientObject) {
-        etName.setText(ingredientObject.getName());
-        etPrice.setText(String.valueOf(ingredientObject.getPrice()));
-        spFirstEffect.setSelection(((ArrayAdapter<String>) spFirstEffect.getAdapter()).getPosition(ingredientObject.getFirstEffect()));
-        spSecondEffect.setSelection(((ArrayAdapter<String>) spSecondEffect.getAdapter()).getPosition(ingredientObject.getSecondEffect()));
-        spThirdEffect.setSelection(((ArrayAdapter<String>) spThirdEffect.getAdapter()).getPosition(ingredientObject.getThirdEffect()));
-        spFourthEffect.setSelection(((ArrayAdapter<String>) spFourthEffect.getAdapter()).getPosition(ingredientObject.getFourthEffect()));
+    private void populateIngredientDetail(Ingredient ingredient) {
+        etName.setText(ingredient.getName());
+        etPrice.setText(String.valueOf(ingredient.getPrice()));
+        spFirstEffect.setSelection(((ArrayAdapter<String>) spFirstEffect.getAdapter()).getPosition(ingredient.getFirstEffect()));
+        spSecondEffect.setSelection(((ArrayAdapter<String>) spSecondEffect.getAdapter()).getPosition(ingredient.getSecondEffect()));
+        spThirdEffect.setSelection(((ArrayAdapter<String>) spThirdEffect.getAdapter()).getPosition(ingredient.getThirdEffect()));
+        spFourthEffect.setSelection(((ArrayAdapter<String>) spFourthEffect.getAdapter()).getPosition(ingredient.getFourthEffect()));
     }
 
     private void populateSpinnerEffect(Spinner spinner) {
@@ -100,7 +99,7 @@ public class EditIngredientFragment extends Fragment {
 
     private void editIngredient() {
         if (validadeEmptyFields() && validadeEffects()) {
-            IngredientObject ingredientNew = new IngredientObject();
+            Ingredient ingredientNew = new Ingredient();
             ingredientNew.setName(etName.getText().toString().trim().toUpperCase());
             ingredientNew.setPrice(Integer.parseInt(etPrice.getText().toString()));
             ingredientNew.setFirstEffect(spFirstEffect.getSelectedItem().toString());
