@@ -191,6 +191,7 @@ public class Util {
         addNewIngredientToList("Wisp Wrappings","Restore Stamina","Fortify Destruction","Fortify Carry Weight","Resist Magic",2);
         addNewIngredientToList("Yellow Mountain Flower","Resist Poison","Fortify Restoration","Fortify Health","Damage Stamina Regen",2);
 
+        Collections.sort(ingredients, new NameComparatorIngredient());
         return ingredients;
     }
 

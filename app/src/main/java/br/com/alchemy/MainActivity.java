@@ -12,20 +12,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import br.com.alchemy.fragment.MakePotionFragment;
-import br.com.alchemy.fragment.ingredient.AddIngredientFragment;
-import br.com.alchemy.fragment.ingredient.EditIngredientFragment;
 import br.com.alchemy.fragment.ingredient.ListIngredientFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
-    private AddIngredientFragment addIngredientFragment;
-    private EditIngredientFragment editIngredientFragment;
     private ListIngredientFragment listIngredientFragment;
     private MakePotionFragment makePotionFragment;
     private FloatingActionButton fab;
@@ -37,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        addIngredientFragment = new AddIngredientFragment();
-        editIngredientFragment = new EditIngredientFragment();
         listIngredientFragment = new ListIngredientFragment();
         makePotionFragment = new MakePotionFragment();
 
@@ -87,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.main, menu);
         return true;
     }
 
@@ -108,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if (id == R.id.nav_make_potion) {
+            fab.setVisibility(View.VISIBLE);
+            replaceFragment(makePotionFragment);
+        }
         if (id == R.id.nav_list_ingredient) {
             fab.setVisibility(View.INVISIBLE);
             replaceFragment(listIngredientFragment);

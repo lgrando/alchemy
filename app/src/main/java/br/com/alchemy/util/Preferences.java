@@ -85,7 +85,7 @@ public class Preferences {
             listArrayList = new ArrayList<>();
         }
 
-        Collections.sort(listArrayList, new ComparatorIngredient());
+        Collections.sort(listArrayList, new NameComparatorIngredient());
         return Util.getIngredients();
     }
 

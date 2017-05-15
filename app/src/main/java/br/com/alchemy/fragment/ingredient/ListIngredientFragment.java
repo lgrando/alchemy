@@ -38,6 +38,7 @@ public class ListIngredientFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_ingredient, container, false);
 
         initViews(view);
+        setHasOptionsMenu(true);
 
         createListView(Util.getIngredients());
 
