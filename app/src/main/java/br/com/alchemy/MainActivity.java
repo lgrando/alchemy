@@ -117,6 +117,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         if (id == R.id.nav_list_ingredient) {
             fab.setVisibility(View.INVISIBLE);
+            replaceFragment(listIngredientFragment);
+        }
+        if (id == R.id.nav_list_potion) {
+            fab.setVisibility(View.INVISIBLE);
             replaceFragment(listPotionFragment);
         }
 

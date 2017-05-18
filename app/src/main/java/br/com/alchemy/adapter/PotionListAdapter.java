@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -47,9 +48,23 @@ public class PotionListAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.tv_potion_second_effect)).setText(item.getSecondIngredient());
 
         if (item.getOptionalIngredient().isEmpty()){
-            view.findViewById(R.id.tv_potion_second_effect).setVisibility(View.GONE);
+            view.findViewById(R.id.tv_potion_optional_effect).setVisibility(View.GONE);
         } else {
             ((TextView) view.findViewById(R.id.tv_potion_optional_effect)).setText(item.getOptionalIngredient());
+        }
+
+        ImageView ivPotionExpensive = (ImageView) view.findViewById(R.id.iv_potion_expensive);
+        if (item.isExpensive()) {
+            ivPotionExpensive.setImageResource(R.drawable.ic_coins);
+        } else {
+            ivPotionExpensive.setImageResource(R.drawable.ic_coins_disable);
+        }
+
+        ImageView ivPotionStrong = (ImageView) view.findViewById(R.id.iv_potion_strong);
+        if (item.isStrong()) {
+            ivPotionStrong.setImageResource(R.drawable.ic_nuclear);
+        } else {
+            ivPotionStrong.setImageResource(R.drawable.ic_nuclear_disable);
         }
 
         return view;

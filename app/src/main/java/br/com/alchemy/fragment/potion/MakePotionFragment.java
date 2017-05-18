@@ -12,11 +12,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.alchemy.R;
 import br.com.alchemy.adapter.IngredientListAdapter;
 import br.com.alchemy.model.Ingredient;
+import br.com.alchemy.util.CustomComparator;
 import br.com.alchemy.util.Preferences;
 import br.com.alchemy.util.Util;
 
@@ -38,6 +40,7 @@ public class MakePotionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_make_potion, container, false);
 
+        getActivity().setTitle("Make potion");
         castEffectsArray();
         initViews(view);
         list = new ArrayList<>();
@@ -69,6 +72,7 @@ public class MakePotionFragment extends Fragment {
             );
             itens.add(item);
         }
+        Collections.sort(itens, new CustomComparator());
         ingredientListAdapter = new IngredientListAdapter(getActivity(), itens);
         lvResult.setAdapter(ingredientListAdapter);
     }

@@ -35,6 +35,8 @@ public class AddIngredientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_ingredient, container, false);
 
+        getActivity().setTitle("Add ingredient");
+
         initViews(view);
 
         populateSpinner(spFirstEffect);

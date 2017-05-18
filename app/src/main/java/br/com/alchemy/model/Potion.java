@@ -8,15 +8,19 @@ public class Potion implements Serializable {
     private String firstIngredient;
     private String secondIngredient;
     private String optionalIngredient;
+    private boolean expensive;
+    private boolean strong;
 
     public Potion() {
     }
 
-    public Potion(String description, String firstIngredient, String secondIngredient, String optionalIngredient) {
+    public Potion(String description, String firstIngredient, String secondIngredient, String optionalIngredient, boolean expensive, boolean strong) {
         this.description = description;
         this.firstIngredient = firstIngredient;
         this.secondIngredient = secondIngredient;
         this.optionalIngredient = optionalIngredient;
+        this.expensive = expensive;
+        this.strong = strong;
     }
 
     public String getDescription() {
@@ -49,5 +53,21 @@ public class Potion implements Serializable {
 
     public void setOptionalIngredient(String optionalIngredient) {
         this.optionalIngredient = optionalIngredient;
+    }
+
+    public boolean isExpensive() {
+        return expensive;
+    }
+
+    public void setExpensive(boolean expensive) {
+        this.expensive = expensive;
+    }
+
+    public boolean isStrong() {
+        return strong;
+    }
+
+    public void setStrong(boolean strong) {
+        this.strong = strong;
     }
 }

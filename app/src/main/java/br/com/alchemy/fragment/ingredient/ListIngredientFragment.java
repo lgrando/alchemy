@@ -36,6 +36,8 @@ public class ListIngredientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_ingredient, container, false);
 
+        getActivity().setTitle("List ingredients");
+
         initViews(view);
 
         createListView(Util.getIngredients());

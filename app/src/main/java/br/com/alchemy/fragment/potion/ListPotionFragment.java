@@ -30,6 +30,7 @@ public class ListPotionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_potion, container, false);
 
+        getActivity().setTitle("List potions");
         initViews(view);
 
         createListView(Preferences.getPotions());
@@ -76,7 +77,9 @@ public class ListPotionFragment extends Fragment {
                     potion.getDescription(),
                     potion.getFirstIngredient(),
                     potion.getSecondIngredient(),
-                    potion.getOptionalIngredient()
+                    potion.getOptionalIngredient(),
+                    potion.isExpensive(),
+                    potion.isStrong()
             );
             itens.add(item);
         }

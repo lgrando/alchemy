@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -27,6 +28,8 @@ public class AddPotionFragment extends Fragment {
     private Spinner spFirstIngredient;
     private Spinner spSecondIngredient;
     private Spinner spOptionalIngredient;
+    private CheckBox cbExpensive;
+    private CheckBox cbStrong;
     private Button btnSave;
 
     public AddPotionFragment() {
@@ -36,6 +39,8 @@ public class AddPotionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_potion, container, false);
+
+        getActivity().setTitle("Register a potion");
 
         initViews(view);
         populateSpinner(spFirstIngredient, true);
@@ -73,6 +78,8 @@ public class AddPotionFragment extends Fragment {
         spFirstIngredient = (Spinner) view.findViewById(R.id.sp_first_ingredient);
         spSecondIngredient = (Spinner) view.findViewById(R.id.sp_second_ingredient);
         spOptionalIngredient = (Spinner) view.findViewById(R.id.sp_optional_ingredient);
+        cbExpensive = (CheckBox) view.findViewById(R.id.cb_expensive);
+        cbStrong = (CheckBox) view.findViewById(R.id.cb_strong);
         btnSave = (Button) view.findViewById(R.id.btn_save);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,11 +96,13 @@ public class AddPotionFragment extends Fragment {
             potion.setDescription(Util.initcaps(etDescription.getText().toString().trim()));
             potion.setFirstIngredient(spFirstIngredient.getSelectedItem().toString());
             potion.setSecondIngredient(spSecondIngredient.getSelectedItem().toString());
-            potion.setOptionalIngredient(spOptionalIngredient.getSelectedItem().toString());
+            potion.setOptionalIngredient(spOptionalIngredient.getSelectedItemId() == 0 ? "" : spOptionalIngredient.getSelectedItem().toString());
+            potion.setExpensive(cbExpensive.isChecked());
+            potion.setStrong(cbStrong.isChecked());
 
             if (validateDuplicatePotion(potion)) {
                 Preferences.savePotion(potion);
-                Snackbar.make(btnSave, "Ingredient saved!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(btnSave, "Potion registered!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 clearFields();
             } else {
                 Snackbar.make(btnSave, "Potion already exists", Snackbar.LENGTH_LONG).setAction("Action", null).show();

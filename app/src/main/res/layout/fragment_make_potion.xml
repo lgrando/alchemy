@@ -10,21 +10,13 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_title"
-            style="@style/Title"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Make potion" />
-
-        <TextView
             android:id="@+id/tv_selected"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/border_round_white"
             android:text="No effects selected"
             android:textSize="10dp" />
