@@ -3,77 +3,78 @@ package br.com.alchemy.util;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import br.com.alchemy.model.Effect;
 import br.com.alchemy.model.Ingredient;
 
 public class Util {
 
-    public static ArrayList<String> effects;
+    public static ArrayList<Effect> effects;
     public static ArrayList<Ingredient> ingredients;
 
     public static String initcaps(String string) {
         return Character.toUpperCase(string.charAt(0)) + string.substring(1);
     }
 
-    public static ArrayList<String> getEffects() {
+    public static ArrayList<Effect> getEffects() {
         effects = new ArrayList<>();
 
-        effects.add(0,"Cure Disease");
-        effects.add(1,"Damage Health");
-        effects.add(2,"Damage Magicka");
-        effects.add(3,"Damage Magicka Regen");
-        effects.add(4,"Damage Stamina");
-        effects.add(5,"Damage Stamina Regen");
-        effects.add(6,"Fear");
-        effects.add(7,"Fortify Alteration");
-        effects.add(8,"Fortify Barter");
-        effects.add(9,"Fortify Block");
-        effects.add(10,"Fortify Carry Weight");
-        effects.add(11,"Fortify Conjuration");
-        effects.add(12,"Fortify Destruction");
-        effects.add(13,"Fortify Enchanting");
-        effects.add(14,"Fortify Health");
-        effects.add(15,"Fortify Heavy Armor");
-        effects.add(16,"Fortify Illusion");
-        effects.add(17,"Fortify Light Armor");
-        effects.add(18,"Fortify Lockpicking");
-        effects.add(19,"Fortify Magicka");
-        effects.add(20,"Fortify Marksman");
-        effects.add(21,"Fortify One-Handed");
-        effects.add(22,"Fortify Pickpocket");
-        effects.add(23,"Fortify Restoration");
-        effects.add(24,"Fortify Smithing");
-        effects.add(25,"Fortify Sneak");
-        effects.add(26,"Fortify Stamina");
-        effects.add(27,"Fortify Two-Handed");
-        effects.add(28,"Frenzy");
-        effects.add(29,"Invisibility");
-        effects.add(30,"Lingering Damage Health");
-        effects.add(31,"Lingering Damage Magicka");
-        effects.add(32,"Lingering Damage Stamina");
-        effects.add(33,"Paralysis");
-        effects.add(34,"Ravage Health");
-        effects.add(35,"Ravage Magicka");
-        effects.add(36,"Ravage Stamina");
-        effects.add(37,"Regenerate Health");
-        effects.add(38,"Regenerate Magicka");
-        effects.add(39,"Regenerate Stamina");
-        effects.add(40,"Resist Fire");
-        effects.add(41,"Resist Frost");
-        effects.add(42,"Resist Magic");
-        effects.add(43,"Resist Poison");
-        effects.add(44,"Resist Shock");
-        effects.add(45,"Restore Health");
-        effects.add(46,"Restore Magicka");
-        effects.add(47,"Restore Stamina");
-        effects.add(48,"Slow");
-        effects.add(49,"Waterbreathing");
-        effects.add(50,"Weakness to Fire");
-        effects.add(51,"Weakness to Frost");
-        effects.add(52,"Weakness to Magic");
-        effects.add(53,"Weakness to Poison");
-        effects.add(54,"Weakness to Shock");
+        addNewEffectToList("Cure Disease",21);
+        addNewEffectToList("Damage Health",3);
+        addNewEffectToList("Damage Magicka",52);
+        addNewEffectToList("Damage Magicka Regen",265);
+        addNewEffectToList("Damage Stamina",43);
+        addNewEffectToList("Damage Stamina Regen",159);
+        addNewEffectToList("Fear",120);
+        addNewEffectToList("Fortify Alteration",47);
+        addNewEffectToList("Fortify Barter",48);
+        addNewEffectToList("Fortify Block",118);
+        addNewEffectToList("Fortify Carry Weight",208);
+        addNewEffectToList("Fortify Conjuration",75);
+        addNewEffectToList("Fortify Destruction",151);
+        addNewEffectToList("Fortify Enchanting",14);
+        addNewEffectToList("Fortify Health",82);
+        addNewEffectToList("Fortify Heavy Armor",55);
+        addNewEffectToList("Fortify Illusion",94);
+        addNewEffectToList("Fortify Light Armor",55);
+        addNewEffectToList("Fortify Lockpicking",25);
+        addNewEffectToList("Fortify Magicka",71);
+        addNewEffectToList("Fortify Marksman",118);
+        addNewEffectToList("Fortify One-Handed",118);
+        addNewEffectToList("Fortify Pickpocket",118);
+        addNewEffectToList("Fortify Restoration",118);
+        addNewEffectToList("Fortify Smithing",82);
+        addNewEffectToList("Fortify Sneak",118);
+        addNewEffectToList("Fortify Stamina",71);
+        addNewEffectToList("Fortify Two-Handed",118);
+        addNewEffectToList("Frenzy",107);
+        addNewEffectToList("Invisibility",261);
+        addNewEffectToList("Lingering Damage Health",86);
+        addNewEffectToList("Lingering Damage Magicka",71);
+        addNewEffectToList("Lingering Damage Stamina",12);
+        addNewEffectToList("Paralysis",285);
+        addNewEffectToList("Ravage Health",6);
+        addNewEffectToList("Ravage Magicka",15);
+        addNewEffectToList("Ravage Stamina",24);
+        addNewEffectToList("Regenerate Health",177);
+        addNewEffectToList("Regenerate Magicka",177);
+        addNewEffectToList("Regenerate Stamina",177);
+        addNewEffectToList("Resist Fire",86);
+        addNewEffectToList("Resist Frost",86);
+        addNewEffectToList("Resist Magic",51);
+        addNewEffectToList("Resist Poison",118);
+        addNewEffectToList("Resist Shock",86);
+        addNewEffectToList("Restore Health",21);
+        addNewEffectToList("Restore Magicka",25);
+        addNewEffectToList("Restore Stamina",25);
+        addNewEffectToList("Slow",247);
+        addNewEffectToList("Waterbreathing",100);
+        addNewEffectToList("Weakness to Fire",48);
+        addNewEffectToList("Weakness to Frost",40);
+        addNewEffectToList("Weakness to Magic",51);
+        addNewEffectToList("Weakness to Poison",51);
+        addNewEffectToList("Weakness to Shock",56);
 
-        Collections.sort(effects);
+        Collections.sort(effects, new CustomComparator());
         return effects;
     }
 
@@ -193,6 +194,11 @@ public class Util {
 
         Collections.sort(ingredients, new CustomComparator());
         return ingredients;
+    }
+
+    private static void addNewEffectToList(String name, int value) {
+        Effect effect = new Effect(name, value);
+        effects.add(effect);
     }
 
     private static void addNewIngredientToList(String name, String first, String second, String third, String fourth, int price) {

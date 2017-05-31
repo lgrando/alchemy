@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.alchemy.R;
+import br.com.alchemy.model.Effect;
 import br.com.alchemy.model.Ingredient;
 import br.com.alchemy.util.Preferences;
 
@@ -93,8 +94,8 @@ public class EditIngredientFragment extends Fragment {
 
     private void populateEffects(List<String> list) {
 
-        for (String effect : Preferences.getEffects()) {
-            list.add(effect);
+        for (Effect effect : Preferences.getEffects()) {
+            list.add(effect.getName());
         }
         list.add(0, "Unknown");
     }

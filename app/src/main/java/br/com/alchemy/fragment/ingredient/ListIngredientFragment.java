@@ -47,22 +47,22 @@ public class ListIngredientFragment extends Fragment {
 
     private void initViews(View view) {
         lvIngredients = (ListView) view.findViewById(R.id.lv_ingredients);
-        lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Ingredient ingredient = (Ingredient) parent.getItemAtPosition(position);
-                Fragment editIngredientFragment = new EditIngredientFragment();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("ingredient", ingredient);
-                editIngredientFragment.setArguments(bundle);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                transaction.replace(R.id.app_content, editIngredientFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
-            }
-        });
+//        lvIngredients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Ingredient ingredient = (Ingredient) parent.getItemAtPosition(position);
+//                Fragment editIngredientFragment = new EditIngredientFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("ingredient", ingredient);
+//                editIngredientFragment.setArguments(bundle);
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//
+//                transaction.replace(R.id.app_content, editIngredientFragment);
+//                transaction.addToBackStack(null);
+//
+//                transaction.commit();
+//            }
+//        });
         etSearch = (EditText) view.findViewById(R.id.et_search);
         etSearch.setInputType(InputType.TYPE_CLASS_TEXT);
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import br.com.alchemy.model.Effect;
 import br.com.alchemy.model.Ingredient;
 import br.com.alchemy.model.Potion;
 
@@ -108,39 +109,7 @@ public class Preferences {
         return result;
     }
 
-    public static void saveEffect(String effect) {
-
-        ArrayList<String> effects = getEffects();
-        effects.add(effect);
-
-        SharedPreferences shref;
-        SharedPreferences.Editor editor;
-        shref = application.getSharedPreferences(TAG, Context.MODE_PRIVATE);
-
-        Gson gson = new Gson();
-        String json = gson.toJson(effects);
-
-        editor = shref.edit();
-        editor.remove(EFFECT_LIST).commit();
-        editor.putString(EFFECT_LIST, json);
-        editor.commit();
-    }
-
-    public static ArrayList<String> getEffects() {
-//        SharedPreferences shref;
-//        shref = application.getSharedPreferences(TAG, Context.MODE_PRIVATE);
-//
-//        Gson gson = new Gson();
-//        String response = shref.getString(EFFECT_LIST, "");
-//        ArrayList<String> listArrayList = gson.fromJson(response, new TypeToken<List<String>>() {
-//        }.getType());
-//
-//        if (listArrayList == null) {
-//            listArrayList = new ArrayList<>();
-//        }
-//
-//        Collections.sort(listArrayList);
-//        return listArrayList;
+    public static ArrayList<Effect> getEffects() {
         return Util.getEffects();
     }
 

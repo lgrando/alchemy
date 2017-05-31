@@ -17,6 +17,7 @@ import java.util.List;
 
 import br.com.alchemy.R;
 import br.com.alchemy.adapter.IngredientListAdapter;
+import br.com.alchemy.model.Effect;
 import br.com.alchemy.model.Ingredient;
 import br.com.alchemy.util.CustomComparator;
 import br.com.alchemy.util.Preferences;
@@ -51,10 +52,10 @@ public class MakePotionFragment extends Fragment {
     }
 
     private void castEffectsArray() {
-        List<String> effectsList = Preferences.getEffects();
+        List<Effect> effectsList = Preferences.getEffects();
         effects = new String[effectsList.size()];
         for (int i = 0; i < Preferences.getEffects().size(); i++) {
-            effects[i] = Preferences.getEffects().get(i);
+            effects[i] = Preferences.getEffects().get(i).getName();
         }
     }
 

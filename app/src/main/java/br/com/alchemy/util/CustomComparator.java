@@ -1,5 +1,6 @@
 package br.com.alchemy.util;
 
+import br.com.alchemy.model.Effect;
 import br.com.alchemy.model.Ingredient;
 import br.com.alchemy.model.Potion;
 
@@ -16,6 +17,10 @@ public class CustomComparator implements java.util.Comparator<Object> {
             Potion p1 = (Potion) o1;
             Potion p2 = (Potion) o2;
             result = p1.getDescription().compareTo(p2.getDescription());
+        } else if (o1 instanceof Effect) {
+            Effect e1 = (Effect) o1;
+            Effect e2 = (Effect) o2;
+            result = e1.getName().compareTo(e2.getName());
         }
         return result;
     }
