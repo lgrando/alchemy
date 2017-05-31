@@ -21,6 +21,11 @@
             android:id="@+id/nav_list_potion"
             android:icon="@drawable/ic_notepad"
             android:title="List potions" />
+
+        <item
+            android:id="@+id/nav_list_effect"
+            android:icon="@drawable/ic_notepad"
+            android:title="List effects" />
     </group>
 
 </menu>

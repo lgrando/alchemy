@@ -2,11 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CCC"
     tools:context="br.com.alchemy.fragment.effect.ListEffectFragment">
 
-    <TextView
+    <ListView
+        android:id="@+id/lv_effects"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:layout_margin="10dp"
+        android:divider="@null"
+        android:dividerHeight="3pt" />
 </FrameLayout>

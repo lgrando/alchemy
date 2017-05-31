@@ -20,7 +20,13 @@ public class CustomComparator implements java.util.Comparator<Object> {
         } else if (o1 instanceof Effect) {
             Effect e1 = (Effect) o1;
             Effect e2 = (Effect) o2;
-            result = e1.getName().compareTo(e2.getName());
+            if (e1.getValue() > e2.getValue()) {
+                result = -1;
+            } else if (e1.getValue() == e2.getValue()) {
+                result = 0;
+            } else {
+                result = 1;
+            }
         }
         return result;
     }

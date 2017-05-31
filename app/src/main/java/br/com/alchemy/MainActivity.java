@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import br.com.alchemy.fragment.effect.ListEffectFragment;
 import br.com.alchemy.fragment.potion.AddPotionFragment;
 import br.com.alchemy.fragment.potion.ListPotionFragment;
 import br.com.alchemy.fragment.potion.MakePotionFragment;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private MakePotionFragment makePotionFragment;
     private AddPotionFragment addPotionFragment;
     private ListPotionFragment listPotionFragment;
+    private ListEffectFragment listEffectFragment;
     private FloatingActionButton fab;
 
     @Override
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         makePotionFragment = new MakePotionFragment();
         addPotionFragment = new AddPotionFragment();
         listPotionFragment = new ListPotionFragment();
+        listEffectFragment = new ListEffectFragment();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -122,6 +125,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_list_potion) {
             fab.setVisibility(View.INVISIBLE);
             replaceFragment(listPotionFragment);
+        }
+        if (id == R.id.nav_list_effect) {
+            fab.setVisibility(View.INVISIBLE);
+            replaceFragment(listEffectFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
