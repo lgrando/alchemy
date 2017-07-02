@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import br.com.alchemy.R;
 import br.com.alchemy.model.Effect;
 import br.com.alchemy.model.Ingredient;
+import br.com.alchemy.util.Preferences;
 
 public class DetailEffectFragment extends Fragment {
 
@@ -34,13 +37,14 @@ public class DetailEffectFragment extends Fragment {
 
         TextView text;
         tvEffectName.setText(effect.getName());
+        ArrayList<Ingredient> searchList = Preferences.getIngredientsByParam(effect.getName().toUpperCase());
         glIngredients.setAlignmentMode(GridLayout.ALIGN_BOUNDS);
         glIngredients.setColumnCount(2);
 
-        for (int i = 0 ; i < 5 ; i++){
+        for (Ingredient ingredient : searchList){
             text = new TextView(getActivity());
-            text.setText("xablau "+i);
-            glIngredients.addView(text,i);
+            text.setText(ingredient.getName());
+            glIngredients.addView(text);
         }
 
         return view;
